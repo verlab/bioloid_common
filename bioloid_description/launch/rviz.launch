@@ -1,0 +1,26 @@
+<launch>
+  <arg name="standalone" default="false"/>
+  <arg name="noimu" default="true"/>
+
+  <param name="robot_description"
+    command="$(find xacro)/xacro --inorder '$(find bioloid_description)/typea.xacro'" />
+
+  <!-- Convert joint states to TF transforms -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+    <param name="publish_frequency" type="double" value="30.0" />
+  </node>
+
+  <node if="$(arg standalone)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="True"/>
+  </node>
+
+  <node unless="$(arg standalone)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="False"/>
+  </node>
+  
+  <!--<node if="$(arg standalone)" name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> -->
+  <!--<node if="$(arg noimu)" pkg="tf" type="static_transform_publisher" name="dummy_imu_frame_broadcaster" args="0 0 0 0 0 0 odom imu_link 1000"/> -->
+
+  <!-- Show in Rviz   -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find bioloid_description)/config/config.rviz"/>
+</launch>

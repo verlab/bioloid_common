@@ -1,0 +1,137 @@
+<?xml version="1.0"?>
+<!-- Standard Bioloid parts -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- Import mass property (inertia) -->
+	<xacro:include filename="$(find bioloid_description)/inertia/Torso.xacro"/>
+	<xacro:include filename="$(find bioloid_description)/inertia/F12.xacro"/>
+	
+    <!-- Torso -->
+    <link name="torso_link">
+        <visual>
+            <default_geometry cad_file="BPF-CHEST-F"/>
+            <origin rpy="${pi/2} 0 ${pi/2}"/>
+        </visual>
+        <visual>
+            <default_geometry cad_file="BPF-CHEST-B"/>
+            <origin rpy="${pi/2} 0 ${pi/2}"/>
+        </visual>
+        <visual>
+            <default_geometry cad_file="CM-5"/>
+            <origin xyz="-0.032 0 -0.015" rpy="0 ${pi} ${pi/2}"/>
+        </visual>
+        <!-- Sensor 100 -->
+        <visual>
+            <default_geometry cad_file="AX-S1"/>
+            <origin xyz="0 0 0.025" rpy="${-pi/2} 0 ${-pi/2}"/>
+        </visual>
+        <!-- Motor 1 -->
+        <visual>
+            <default_geometry cad_file="AX-12"/>
+            <origin xyz="0 -0.032 0" rpy="${pi/2} 0 0"/>
+        </visual>
+        <visual>
+            <default_geometry cad_file="FP04-F3"/>
+            <origin xyz="-0.019 -0.032 -0.0145" rpy="${pi} ${-pi/2} ${pi/2}"/>
+        </visual>
+        <!-- Motor 2 -->
+        <visual>
+            <default_geometry cad_file="AX-12"/>
+            <origin xyz="0 0.032 0" rpy="${pi/2} 0 ${pi}"/>
+        </visual>
+        <visual>
+            <default_geometry cad_file="FP04-F3"/>
+            <origin xyz="-0.019 0.032 -0.0145" rpy="${pi} ${-pi/2} ${pi/2}"/>
+        </visual>        
+        <visual>
+            <default_geometry cad_file="FP04-F3"/>
+            <origin xyz="0.0175 0 -0.0655" rpy="0 0 ${pi/2}"/>
+        </visual>
+        <visual>
+            <default_geometry cad_file="FP04-F3"/>
+            <origin xyz="-0.0175 0 -0.0655" rpy="0 0 ${-pi/2}"/>
+        </visual>
+        <!-- Motor 7 -->
+        <visual>
+            <default_geometry cad_file="AX-12"/>
+            <origin xyz="0 -0.0385 -0.0655" rpy="0 ${pi} ${pi}"/>
+        </visual>
+        <!-- Motor 8 -->
+        <visual>
+            <default_geometry cad_file="AX-12"/>
+            <origin xyz="0 0.0385 -0.0655" rpy="0 ${pi} 0"/>
+        </visual>
+        <collision name="head_collision">
+            <origin xyz="-0.0122 0 0.035"/>
+            <geometry>
+                <box size="0.054 0.033 0.044"/>
+            </geometry>
+        </collision>
+        <collision name="torso_collision_top">
+            <origin xyz="-0.019 0 -0.015"/>
+            <geometry>
+                <box size="0.0905 0.103 0.0635"/>
+            </geometry>
+        </collision>
+        <collision name="torso_collision_bottom">
+            <origin xyz="-0.00625 0 -0.0648"/>
+            <geometry>
+                <box size="0.065 0.099 0.043"/>
+            </geometry>
+        </collision>
+        <xacro:torso_inertial/>
+        <!--
+        <inertial>
+            <origin xyz="-0.003053 -0.038651 -0.019268" />
+            <mass value="0.97559947"/>
+            <inertia ixx="3.1081800"  ixy="-0.25460189"  ixz="2.0318174" iyy="6.3787776" iyz="0.16417863" izz="5.3316425" />
+        </inertial>
+        -->
+    </link>
+
+    <!-- Right foot -->
+    <link name="r_foot_link">
+        <visual>
+            <default_geometry cad_file="FP04-F12"/>
+            <origin xyz="0.0235 0 0" rpy="0 ${pi/2} ${-pi/2}"/>
+        </visual>
+        <collision name="r_foot_collision">
+            <origin xyz="0.0277 0 0"/>
+            <geometry>
+                <box size="0.009 0.061 0.101"/>
+            </geometry>
+        </collision>
+        <xacro:foot_right_inertial/>
+        <!--
+        <inertial>
+            <origin xyz="-0.025995 -0.009506 -0.000503" />
+            <mass value="0.0794462"/>
+            <inertia ixx="0.12079175"  ixy="-0.00079781067"  ixz="-0.00039322246" iyx="-0.00079781067" iyy="0.10885465" iyz="0.0070770117" izx="-0.00039322246" izy="0.0070770117" izz="0.041871103" />
+        </inertial>
+        -->
+    </link>
+
+    <!-- Left foot -->
+    <link name="l_foot_link">
+        <visual>
+            <default_geometry cad_file="FP04-F12"/>
+            <origin xyz="-0.0235 0 0" rpy="${pi} ${pi/2} ${-pi/2}"/>
+        </visual>
+        <collision name="l_foot_collision">
+            <origin xyz="-0.0277 0 0"/>
+            <geometry>
+                <box size="0.009 0.061 0.101"/>
+            </geometry>
+        </collision>
+        <xacro:foot_left_inertial/>
+        <!--
+        <inertial>
+            <origin xyz="-0.025995 -0.009506 -0.000503" />
+            <mass value="0.0794462"/>
+            <inertia ixx="0.12079175"  ixy="-0.00079781067"  ixz="-0.00039322246" iyx="-0.00079781067" iyy="0.10885465" iyz="0.0070770117" izx="-0.00039322246" izy="0.0070770117" izz="0.041871103" />
+        </inertial>
+        -->
+    </link>
+
+
+</robot>

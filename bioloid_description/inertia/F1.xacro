@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!--Inertial properties F1 shoulder_left -->
+<xacro:macro name="shoulder_left_inertial">
+	<inertial>
+		<mass value="0.0595945816"/>
+		<origin xyz="-0.0109359544 -0.0123630374 0.0000000007" />
+		<inertia ixx="0.0069903407" ixy="0.0020812370" ixz="-0.0000000001"
+				iyy="0.0067210939" iyz="-0.0000000002"
+				izz="0.0054521983"/>
+	</inertial>
+</xacro:macro>
+
+<!--Inertial properties F1 shoulder_right -->
+<xacro:macro name="shoulder_right_inertial">
+	<inertial>
+		<mass value="0.0595945816"/>
+		<origin xyz="-0.0109359544 0.0123630374 -0.0000000007" />
+		<inertia ixx="0.0069903407" ixy="-0.0020812370" ixz="0.0000000001"
+				iyy="0.0067210939" iyz="-0.0000000002"
+				izz="0.0054521983"/>
+	</inertial>
+</xacro:macro>
+
+</robot>

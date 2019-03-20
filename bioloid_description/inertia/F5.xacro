@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!--Inertial properties F5 hip_twist -->
+<xacro:macro name="hip_twist_inertial">
+	<inertial>
+		<mass value="0.0755193623"/>
+		<origin xyz="0.0005416307 -0.0000009200 0.0190685105" />
+		<inertia ixx="0.0082750315" ixy="-0.0000001051" ixz="0.0002681193"
+				iyy="0.0194814984" iyz="-0.0000005502"
+				izz="0.0133677616"/>
+	</inertial>
+</xacro:macro>
+
+</robot>

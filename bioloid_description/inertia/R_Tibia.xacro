@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!--Inertial properties R_Tibia tibia_right -->
+<xacro:macro name="tibia_right_inertial">
+	<inertial>
+		<mass value="0.4326089335"/>
+		<origin xyz="-0.0010052500 -0.0012675002 -0.0110864377" />
+		<inertia ixx="0.0542924849" ixy="0.0002115982" ixz="0.0010887655"
+				iyy="0.0479327441" iyz="0.0019185952"
+				izz="0.0137425373"/>
+	</inertial>
+</xacro:macro>
+
+</robot>
