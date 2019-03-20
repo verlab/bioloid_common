@@ -1,0 +1,18 @@
+<launch>
+  <arg name="noimu" default="true"/>
+
+  <param name="robot_description"
+   command="$(find xacro)/xacro --inorder '$(find bioloid_typea_description)/typea.xacro'" />
+
+  <!--  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="TRUE"/>
+  </node> -->
+
+  <node if="$(arg noimu)" name="dummy_imu_frame_broadcaster"
+   pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 odom imu_link 1000"/>
+    
+  <!-- Show in Rviz  -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find bioloid_typea_description)/config/config.rviz"/>
+
+</launch>
+

@@ -1,0 +1,35 @@
+<launch>
+
+  <arg name="uses_gui" default="true" />
+  <!-- Initiate gazebo enviroment -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="worlds/empty.world"/>
+    <arg name="verbose" value="true"/>
+    <arg name="paused" value="true"/>
+    <arg name="use_sim_time" value="false"/>
+    <arg name="headless" value="false"/>
+    <arg name="gui" value="$(arg uses_gui)"/>
+  </include>
+
+  <!-- Convert an xacro and put on parameter server -->
+  <param name="robot_description"
+    command="$(find xacro)/xacro --inorder '$(find bioloid_description)/typea.xacro'" />
+
+   <!-- Convert joint states to TF transforms -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+    <remap from="/joint_states" to="/typea/joint_states" />
+    <param name="publish_frequency" type="double" value="50.0" />
+  </node>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+  </node>
+
+  <!-- Spawn a robot into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model typea -z 0.3" />
+
+  <include file="$(find bioloid_control)/launch/bioloid_gazebo.launch"/>
+
+  <!--node name="typea_walker" pkg="bioloid_gazebo" type="walker.py" output="screen"/-->
+
+</launch>

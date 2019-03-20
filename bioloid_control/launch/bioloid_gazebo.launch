@@ -1,0 +1,33 @@
+<launch>
+
+  <!-- GDB functionality -->
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+    <!-- Load controller settings -->
+    <rosparam file="$(find bioloid_control)/config/bioloid_controllers_gazebo.yaml" command="load"/>
+
+    <!-- Load controller manager -->
+    <node name="control_spawner" pkg="controller_manager" type="spawner" respawn="false"
+	output="screen" ns="/typea" args="joint_state_controller
+	l_shoulder_swing_joint_position_controller
+    l_shoulder_lateral_joint_position_controller
+    l_elbow_joint_position_controller
+    r_shoulder_swing_joint_position_controller
+    r_shoulder_lateral_joint_position_controller
+    r_elbow_joint_position_controller
+    l_hip_twist_joint_position_controller
+    l_hip_lateral_joint_position_controller
+    l_hip_swing_joint_position_controller
+    l_knee_joint_position_controller
+    l_ankle_swing_joint_position_controller
+    l_ankle_lateral_joint_position_controller
+    r_hip_twist_joint_position_controller
+    r_hip_lateral_joint_position_controller
+    r_hip_swing_joint_position_controller
+    r_knee_joint_position_controller
+    r_ankle_swing_joint_position_controller
+    r_ankle_lateral_joint_position_controller "/>
+
+</launch>

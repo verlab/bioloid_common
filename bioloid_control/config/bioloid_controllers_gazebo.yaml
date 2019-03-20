@@ -1,0 +1,128 @@
+typea:
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+
+
+
+  # ARMS
+
+  l_shoulder_swing_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_shoulder_swing_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  l_shoulder_lateral_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_shoulder_lateral_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  l_elbow_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_elbow_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+
+  r_shoulder_swing_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_shoulder_swing_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  r_shoulder_lateral_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_shoulder_lateral_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  r_elbow_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_elbow_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+
+
+  # LEGS
+
+  l_hip_twist_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_hip_twist_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  l_hip_lateral_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_hip_lateral_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  l_hip_swing_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_hip_swing_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  l_knee_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_knee_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  l_ankle_swing_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_ankle_swing_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  l_ankle_lateral_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: l_ankle_lateral_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+
+  r_hip_twist_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_hip_twist_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  r_hip_lateral_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_hip_lateral_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  r_hip_swing_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_hip_swing_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  r_knee_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_knee_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  r_ankle_swing_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_ankle_swing_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+  r_ankle_lateral_joint_position_controller:
+    type: position_controllers/JointPositionController
+    joint: r_ankle_lateral_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+
+/gazebo_ros_control:
+  pid_gains:
+      l_shoulder_swing_joint: { p: 100.0, i: 0.01, d: 1.0}
+      l_shoulder_lateral_joint: { p: 100.0, i: 0.01, d: 1.0}
+      l_elbow_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_shoulder_swing_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_shoulder_lateral_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_elbow_joint: { p: 100.0, i: 0.01, d: 1.0}
+      l_hip_twist_joint: { p: 100.0, i: 0.01, d: 1.0}
+      l_hip_lateral_joint: { p: 100.0, i: 0.01, d: 1.0}
+      l_hip_swing_joint: { p: 100.0, i: 0.01, d: 1.0}
+      l_knee_joint: { p: 100.0, i: 0.01, d: 1.0}
+      l_ankle_swing_joint: { p: 100.0, i: 0.01, d: 1.0}
+      l_ankle_lateral_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_hip_twist_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_hip_lateral_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_hip_swing_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_knee_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_ankle_swing_joint: { p: 100.0, i: 0.01, d: 1.0}
+      r_ankle_lateral_joint: { p: 100.0, i: 0.01, d: 1.0}
+
+
+
