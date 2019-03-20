@@ -4,16 +4,12 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Status1
-        - /Grid1
         - /TF1
         - /RobotModel1
-        - /RobotModel1/Status1
         - /RobotModel1/Links1
         - /RobotModel1/Links1/l_foot_link1/Position1
       Splitter Ratio: 0.515021026
-    Tree Height: 750
+    Tree Height: 778
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -37,7 +33,7 @@ Visualization Manager:
   Class: ""
   Displays:
     - Alpha: 0.5
-      Cell Size: 0.200000003
+      Cell Size: 0.0500000007
       Class: rviz/Grid
       Color: 160; 160; 164
       Enabled: true
@@ -49,9 +45,9 @@ Visualization Manager:
       Offset:
         X: 0
         Y: 0
-        Z: 0
+        Z: -0.289999992
       Plane: XY
-      Plane Cell Count: 10
+      Plane Cell Count: 100
       Reference Frame: <Fixed Frame>
       Value: true
     - Class: rviz/Axes
@@ -102,19 +98,47 @@ Visualization Manager:
           Value: true
         l_ankle_lateral_link:
           Value: true
+        l_ankle_swing_link:
+          Value: true
         l_foot_link:
           Value: true
         l_hand_link:
           Value: true
+        l_hip_lateral_link:
+          Value: true
+        l_hip_twist_link:
+          Value: true
         l_lower_arm_link:
           Value: true
+        l_lower_leg_link:
+          Value: true
+        l_shoulder_swing_link:
+          Value: true
+        l_upper_arm_link:
+          Value: true
+        l_upper_leg_link:
+          Value: true
         r_ankle_lateral_link:
+          Value: true
+        r_ankle_swing_link:
           Value: true
         r_foot_link:
           Value: true
         r_hand_link:
           Value: true
+        r_hip_lateral_link:
+          Value: true
+        r_hip_twist_link:
+          Value: true
         r_lower_arm_link:
+          Value: true
+        r_lower_leg_link:
+          Value: true
+        r_shoulder_swing_link:
+          Value: true
+        r_upper_arm_link:
+          Value: true
+        r_upper_leg_link:
           Value: true
         torso_link:
           Value: true
@@ -128,7 +152,32 @@ Visualization Manager:
           imu_link:
             {}
           torso_link:
-            {}
+            l_hip_twist_link:
+              l_hip_lateral_link:
+                l_upper_leg_link:
+                  l_lower_leg_link:
+                    l_ankle_swing_link:
+                      l_ankle_lateral_link:
+                        l_foot_link:
+                          {}
+            l_shoulder_swing_link:
+              l_upper_arm_link:
+                l_lower_arm_link:
+                  l_hand_link:
+                    {}
+            r_hip_twist_link:
+              r_hip_lateral_link:
+                r_upper_leg_link:
+                  r_lower_leg_link:
+                    r_ankle_swing_link:
+                      r_ankle_lateral_link:
+                        r_foot_link:
+                          {}
+            r_shoulder_swing_link:
+              r_upper_arm_link:
+                r_lower_arm_link:
+                  r_hand_link:
+                    {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -296,37 +345,37 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.08175445
+      Distance: 1.57765341
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.132053003
-        Y: -0.0390096009
-        Z: -0.136877
+        X: 0.0847772211
+        Y: 0.0546816289
+        Z: -0.199022621
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: -0.129804075
+      Pitch: 0.420195848
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.66334438
+      Yaw: 0.588344276
     Saved: ~
 Window Geometry:
   Camera:
     collapsed: false
   Displays:
     collapsed: false
-  Height: 1028
+  Height: 1056
   Hide Left Dock: false
   Hide Right Dock: true
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000016a0000037dfc020000000bfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c00610079007301000000280000037d000000dd00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006500000001cc000000a00000001600fffffffb0000000a0049006d00610067006500000001bb000000b10000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e006700000001250000018d0000000000000000000000010000010f00000234fc0200000004fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d00000234000000b000fffffffb0000000c00430061006d0065007200610000000158000001190000001600fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005c60000003bfc0100000002fb0000000800540069006d00650100000000000005c60000030000fffffffb0000000800540069006d00650100000000000004500000000000000000000004560000037d00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000016a00000399fc020000000bfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000002800000399000000dd00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006500000001cc000000a00000001600fffffffb0000000a0049006d00610067006500000001bb000000b10000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e006700000001250000018d0000000000000000000000010000010f00000234fc0200000004fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003d00000234000000b000fffffffb0000000c00430061006d0065007200610000000158000001190000001600fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007800000003bfc0100000002fb0000000800540069006d00650100000000000007800000030000fffffffb0000000800540069006d00650100000000000004500000000000000000000006100000039900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -335,6 +384,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: true
-  Width: 1478
+  Width: 1920
   X: 0
   Y: 24
