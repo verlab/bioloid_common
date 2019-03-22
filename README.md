@@ -32,6 +32,11 @@ If you want to launch gazebo headless (without GUI) uses:
 $ roslaunch bioloid_gazebo gazebo.launch uses_gui:=false
 ```
 
+In order to move the joints using trajectory controller uses:
+```
+rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
+```
+
 To start the simulation call this service:
 ```
 $ rosservice call /gazebo/unpause_physics "{}" 

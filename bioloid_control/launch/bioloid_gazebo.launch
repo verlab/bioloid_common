@@ -9,7 +9,7 @@
     <rosparam file="$(find bioloid_control)/config/bioloid_controllers_gazebo.yaml" command="load"/>
 
     <!-- Load controller manager -->
-    <node name="control_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    <!--node name="control_spawner" pkg="controller_manager" type="spawner" respawn="false"
 	output="screen" ns="/typea" args="joint_state_controller
 	l_shoulder_swing_joint_position_controller
     l_shoulder_lateral_joint_position_controller
@@ -28,6 +28,6 @@
     r_hip_swing_joint_position_controller
     r_knee_joint_position_controller
     r_ankle_swing_joint_position_controller
-    r_ankle_lateral_joint_position_controller "/>
-
+    r_ankle_lateral_joint_position_controller "/-->
+  <node ns="/typea" name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn joint_trajectory_controller" respawn="false" output="screen"/>
 </launch>
