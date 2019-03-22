@@ -43,22 +43,23 @@ $ rosservice call /gazebo/unpause_physics "{}"
 ```
 
 ## Topics
-/clock
-/rosout
-/rosout_agg
-/tf
-/tf_static
-/typea/footl_contact_sensor_state
-/typea/footr_contact_sensor_state
-/typea/imu
-/typea/joint_states
-/typea/joint_trajectory_controller/command
-/typea/joint_trajectory_controller/follow_joint_trajectory/cancel
-/typea/joint_trajectory_controller/follow_joint_trajectory/feedback
-/typea/joint_trajectory_controller/follow_joint_trajectory/goal
-/typea/joint_trajectory_controller/follow_joint_trajectory/result
-/typea/joint_trajectory_controller/follow_joint_trajectory/status
-/typea/joint_trajectory_controller/state
-/typea/odom
-
+```$ rostopic list
+  /clock
+  /rosout
+  /rosout_agg
+  /tf
+  /tf_static
+  /typea/footl_contact_sensor_state
+  /typea/footr_contact_sensor_state
+  /typea/imu
+  /typea/joint_states
+  /typea/joint_trajectory_controller/command
+  /typea/joint_trajectory_controller/follow_joint_trajectory/cancel
+  /typea/joint_trajectory_controller/follow_joint_trajectory/feedback
+  /typea/joint_trajectory_controller/follow_joint_trajectory/goal
+  /typea/joint_trajectory_controller/follow_joint_trajectory/result
+  /typea/joint_trajectory_controller/follow_joint_trajectory/status
+  /typea/joint_trajectory_controller/state
+  /typea/odom
+```
 
