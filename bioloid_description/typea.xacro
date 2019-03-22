@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="typea">
 
-	<!-- Import mass property (inertia) -->
-	<xacro:include filename="$(find bioloid_description)/inertia/Torso.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/F1.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/F5.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/F12.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/F11.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/upperarm.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/upperleg.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/L_Foot.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/R_Foot.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/L_lowerarm.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/R_lowerarm.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/L_Tibia.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/R_Tibia.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/L_hip-R_ankle.xacro"/>
-	<xacro:include filename="$(find bioloid_description)/inertia/R_hip-L_ankle.xacro"/>
+    <!-- Import mass property (inertia) -->
+    <xacro:include filename="$(find bioloid_description)/inertia/Torso.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/F1.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/F5.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/F12.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/F11.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/upperarm.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/upperleg.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/L_Foot.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/R_Foot.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/L_lowerarm.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/R_lowerarm.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/L_Tibia.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/R_Tibia.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/L_hip-R_ankle.xacro"/>
+    <xacro:include filename="$(find bioloid_description)/inertia/R_hip-L_ankle.xacro"/>
 
     <!-- Import gazebo_ros_control plugin -->
     <xacro:include filename="$(find bioloid_description)/gazebo.xacro" ns="gazebo"/>
@@ -43,7 +43,7 @@
     <!-- IMU -->
     <joint name="imu_to_base_joint" type="fixed">
         <axis xyz="1 0 0"/>
-        <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        <origin xyz="0.0 0 0" rpy="0 0 0"/>
         <parent link="base_link"/>
         <child link="imu_link"/>
     </joint>
@@ -57,18 +57,87 @@
                 <color rgba="0.0 1.0 0.0 1.0"/>
             </material>
         </visual>
-          <collision>
-	    <origin rpy="0 0 0" xyz="0 0 0"/>
-	        <geometry>
-	        <box size=".01 .01 .01"/>
-	        </geometry>
-	    </collision>
-	  <inertial>
-	    <mass value="0.001"/>
-	    <origin rpy="0 0 0" xyz="0 0 0"/>
-	    <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
-	  </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size=".01 .01 .01"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+        </inertial>
     </link>
+    <gazebo reference="imu_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+
+    <!-- Foot Contact Sensor -->
+    <joint name="l_foot_sensor_joint" type="fixed">
+        <axis xyz="0 0 0"/>
+        <origin xyz="-0.032 0 0" rpy="0 ${pi/2} 0"/>
+        <parent link="l_foot_link"/>
+        <child link="l_contact_sensor_link"/>
+    </joint>
+    <link name="l_contact_sensor_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.08 0.06 0.001"/>
+            </geometry>
+            <material name="red">
+                <color rgba="1.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size=".01 .01 .001"/>
+            </geometry>
+        </collision>
+        <!--inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+        </inertial-->
+    </link>
+    <gazebo reference="l_contact_sensor_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+    <joint name="r_foot_sensor_joint" type="fixed">
+        <axis xyz="0 0 0"/>
+        <origin xyz="0.032 0 0" rpy="0 ${pi/2} 0"/>
+        <parent link="r_foot_link"/>
+        <child link="r_contact_sensor_link"/>
+    </joint>
+    <link name="r_contact_sensor_link">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.08 0.06 0.001"/>
+            </geometry>
+            <material name="red">
+                <color rgba="1.0 0.0 0.0 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size=".01 .01 .001"/>
+            </geometry>
+        </collision>
+        <!--inertial>
+            <mass value="0.001"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.0001"/>
+        </inertial-->
+    </link>
+    <gazebo reference="r_contact_sensor_link">
+        <material>Gazebo/Red</material>
+    </gazebo>
 
 
 
@@ -132,7 +201,7 @@
             <child link="${prefix}_upper_leg_link"/>
             <limit lower="${-0.8*(reflect-1)-2}" upper="${-0.8*(reflect+1)+2}" effort="10" velocity="5.6548668"/>
         </joint>
-    </xacro:macro>        
+    </xacro:macro>
     <xacro:macro name="knee_joint" params="prefix reflect">
         <joint name="${prefix}_knee_joint" type="revolute">
             <parent link="${prefix}_upper_leg_link"/>
@@ -173,216 +242,217 @@
             <kd>10.0</kd>
             <minDepth>0.001</minDepth>
             <maxContacts>1</maxContacts>
+            <material>Gazebo/Grey</material>
         </gazebo>
     </xacro:macro>
 
     <!-- Links MACRO -->
     <xacro:macro name="hip_lateral_link" params="prefix reflect x_offset y_offset z_offset *inertial">
-    <link name="${prefix}_hip_lateral_link">
-        <!-- Motor 9[r] 10[l] -->
-        <visual>
-            <default_geometry cad_file="AX-12"/>
-            <origin xyz="0 0 ${z_offset}" rpy="0 0 ${(reflect-1)*pi*-1/2}"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F6"/>
-            <origin xyz="${-1*reflect*0.019} ${-1*reflect*0.0145} ${z_offset+0.016}" rpy="0 ${-pi/2} ${-1*reflect*pi/2}"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F6"/>
-            <origin xyz="${reflect*0.019} ${-1*reflect*0.0145} ${z_offset+0.016}" rpy="0 ${-pi/2} ${reflect*pi/2}"/>
-        </visual>
-        <!-- Motor 11[r] 12[l] -->
-        <visual>
-            <default_geometry cad_file="AX-12"/>
-            <origin xyz="0 0 ${z_offset-0.032}" rpy="${(reflect-1)*pi*-1/2} ${-1*reflect*pi/2} 0"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="BPF-BU"/>
-            <origin xyz="0 0 ${z_offset-0.05}" rpy="${-1*reflect*pi/2} ${(reflect-1)*pi*-1/2} 0"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F7"/>
-            <origin xyz="0 ${-1*reflect*0.0145} ${z_offset-0.051}" rpy="${reflect*pi/2} ${(reflect-1)*pi*-1/2} ${pi/2}"/>
-        </visual>
-        <collision name="r_hip_lateral_collision">
-            <origin xyz="0 ${-1*reflect*0.0135} ${z_offset-0.0153}"/>
-            <geometry>
-                <box size="0.04 0.051 0.0721"/>
-            </geometry>
-        </collision>
-        <xacro:insert_block name="inertial" />
-        <!--
+        <link name="${prefix}_hip_lateral_link">
+            <!-- Motor 9[r] 10[l] -->
+            <visual>
+                <default_geometry cad_file="AX-12"/>
+                <origin xyz="0 0 ${z_offset}" rpy="0 0 ${(reflect-1)*pi*-1/2}"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F6"/>
+                <origin xyz="${-1*reflect*0.019} ${-1*reflect*0.0145} ${z_offset+0.016}" rpy="0 ${-pi/2} ${-1*reflect*pi/2}"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F6"/>
+                <origin xyz="${reflect*0.019} ${-1*reflect*0.0145} ${z_offset+0.016}" rpy="0 ${-pi/2} ${reflect*pi/2}"/>
+            </visual>
+            <!-- Motor 11[r] 12[l] -->
+            <visual>
+                <default_geometry cad_file="AX-12"/>
+                <origin xyz="0 0 ${z_offset-0.032}" rpy="${(reflect-1)*pi*-1/2} ${-1*reflect*pi/2} 0"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="BPF-BU"/>
+                <origin xyz="0 0 ${z_offset-0.05}" rpy="${-1*reflect*pi/2} ${(reflect-1)*pi*-1/2} 0"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F7"/>
+                <origin xyz="0 ${-1*reflect*0.0145} ${z_offset-0.051}" rpy="${reflect*pi/2} ${(reflect-1)*pi*-1/2} ${pi/2}"/>
+            </visual>
+            <collision name="r_hip_lateral_collision">
+                <origin xyz="0 ${-1*reflect*0.0135} ${z_offset-0.0153}"/>
+                <geometry>
+                    <box size="0.04 0.051 0.0721"/>
+                </geometry>
+            </collision>
+            <xacro:insert_block name="inertial" />
+            <!--
         <inertial>
             <origin xyz="0.000079 0.018242 0.013873" />
             <mass value="0.11904336"/>
-            <inertia ixx="0.097950272"  ixy="0.0012119368"  ixz="-0.00021223016" iyx="0.00122119368" iyy="0.032848287" iyz="-0.0019474021" izx="-0.00021223016" izy="-0.0019474021" izz="0.11493509" />
+            <inertia ixx="0.097950272" ixy="0.0012119368" ixz="-0.00021223016" iyx="0.00122119368" iyy="0.032848287" iyz="-0.0019474021" izx="-0.00021223016" izy="-0.0019474021" izz="0.11493509" />
         </inertial>
         -->
-    </link>
+        </link>
     </xacro:macro>
 
     <xacro:macro name="hip_twist_link" params="prefix reflect x_offset y_offset z_offset">
-    <link name="${prefix}_hip_twist_link">
-        <visual>
-            <default_geometry cad_file="FP04-F5"/>
-            <origin xyz="0 ${reflect*y_offset} 0.05" rpy="${pi} 0 ${(reflect+1)*pi*1/2}"/>
-        </visual>
-        <collision name="r_hip_twist_collision">
-            <origin xyz="0.0008 ${reflect*y_offset} 0.041"/>
-            <geometry>
-                <box size="0.029 0.083 0.0405"/>
-            </geometry>
-        </collision>
-        <xacro:hip_twist_inertial/>
-        <!--
+        <link name="${prefix}_hip_twist_link">
+            <visual>
+                <default_geometry cad_file="FP04-F5"/>
+                <origin xyz="0 ${reflect*y_offset} 0.05" rpy="${pi} 0 ${(reflect+1)*pi*1/2}"/>
+            </visual>
+            <collision name="r_hip_twist_collision">
+                <origin xyz="0.0008 ${reflect*y_offset} 0.041"/>
+                <geometry>
+                    <box size="0.029 0.083 0.0405"/>
+                </geometry>
+            </collision>
+            <xacro:hip_twist_inertial/>
+            <!--
         <inertial>
             <origin xyz="0.000000 0.000480 0.018437" />
             <mass value="0.167"/>
-            <inertia ixx="0.12259691"  ixy="0.00071127469"  ixz="0.00081143913" iyx="0.00071127469" iyy="0.11066637" iyz="-0.0071635476" izx="0.00081143913" izy="-0.0071635476" izz="0.041877668" />
+            <inertia ixx="0.12259691" ixy="0.00071127469" ixz="0.00081143913" iyx="0.00071127469" iyy="0.11066637" iyz="-0.0071635476" izx="0.00081143913" izy="-0.0071635476" izz="0.041877668" />
         </inertial>
         -->
-    </link>
+        </link>
     </xacro:macro>
 
     <xacro:macro name="upper_leg_link" params="prefix reflect x_offset y_offset z_offset">
-    <link name="${prefix}_upper_leg_link">
-        <visual>
-            <default_geometry cad_file="FP04-F4"/>
-            <origin xyz="0 0 0" rpy="${-1*reflect*pi/2} ${-1*reflect*pi/2} ${-pi/2}"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F1"/>
-            <origin xyz="${reflect*0.075} 0.0145 0" rpy="${pi/2} ${reflect*pi/2} ${-1*reflect*pi/2}"/>
-        </visual>
-        <collision name="r_upper_leg_proximal_collision">
-            <origin xyz="${reflect*0.0214} 0 0"/>
-            <geometry>
-                <box size="0.065 0.03 0.049"/>
-            </geometry>
-        </collision>
-        <collision name="r_upper_leg_distal_collision">
-            <origin xyz="${reflect*0.0675} 0.0065 0"/>
-            <geometry>
-                <box size="0.04 0.0371 0.049"/>
-            </geometry>
-        </collision>
-        <xacro:upperleg_inertial/>
-        <!--
+        <link name="${prefix}_upper_leg_link">
+            <visual>
+                <default_geometry cad_file="FP04-F4"/>
+                <origin xyz="0 0 0" rpy="${-1*reflect*pi/2} ${-1*reflect*pi/2} ${-pi/2}"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F1"/>
+                <origin xyz="${reflect*0.075} 0.0145 0" rpy="${pi/2} ${reflect*pi/2} ${-1*reflect*pi/2}"/>
+            </visual>
+            <collision name="r_upper_leg_proximal_collision">
+                <origin xyz="${reflect*0.0214} 0 0"/>
+                <geometry>
+                    <box size="0.065 0.03 0.049"/>
+                </geometry>
+            </collision>
+            <collision name="r_upper_leg_distal_collision">
+                <origin xyz="${reflect*0.0675} 0.0065 0"/>
+                <geometry>
+                    <box size="0.04 0.0371 0.049"/>
+                </geometry>
+            </collision>
+            <xacro:upperleg_inertial/>
+            <!--
         <inertial>
             <origin xyz="-0.062965 -0.000323 0.000692" />
             <mass value="0.11904336"/>
-            <inertia ixx="0.097950272"  ixy="0.0012119368"  ixz="-0.00021223016" iyx="0.00122119368" iyy="0.032848287" iyz="-0.0019474021" izx="-0.00021223016" izy="-0.0019474021" izz="0.11493509" />
+            <inertia ixx="0.097950272" ixy="0.0012119368" ixz="-0.00021223016" iyx="0.00122119368" iyy="0.032848287" iyz="-0.0019474021" izx="-0.00021223016" izy="-0.0019474021" izz="0.11493509" />
         </inertial>
         -->
-    </link>
+        </link>
     </xacro:macro>
 
     <xacro:macro name="lower_leg_link" params="prefix reflect x_offset y_offset z_offset *inertial">
-    <link name="${prefix}_lower_leg_link">
-        <!-- Motor 13[r] 14[l] -->
-        <visual>
-            <default_geometry cad_file="AX-12"/>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F3"/>
-            <origin xyz="${reflect*0.019} -0.0145 0" rpy="0 0 ${reflect*pi/2}"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F4"/>
-            <origin xyz="${reflect*0.071} -0.0145 0" rpy="${reflect*pi/2} ${reflect*pi/2} ${-pi/2}"/>
-        </visual>
-        <collision name="r_lower_leg_proximal_collision">
-            <origin xyz="0 -0.0135 0"/>
-            <geometry>
-                <box size="0.033 0.051 0.044"/>
-            </geometry>
-        </collision>
-        <collision name="r_lower_leg_distal_collision">
-            <origin xyz="${reflect*0.0492} -0.0145 0"/>
-            <geometry>
-                <box size="0.067 0.03 0.049"/>
-            </geometry>
-        </collision>
-        <xacro:insert_block name="inertial" />
-        <!--
+        <link name="${prefix}_lower_leg_link">
+            <!-- Motor 13[r] 14[l] -->
+            <visual>
+                <default_geometry cad_file="AX-12"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F3"/>
+                <origin xyz="${reflect*0.019} -0.0145 0" rpy="0 0 ${reflect*pi/2}"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F4"/>
+                <origin xyz="${reflect*0.071} -0.0145 0" rpy="${reflect*pi/2} ${reflect*pi/2} ${-pi/2}"/>
+            </visual>
+            <collision name="r_lower_leg_proximal_collision">
+                <origin xyz="0 -0.0135 0"/>
+                <geometry>
+                    <box size="0.033 0.051 0.044"/>
+                </geometry>
+            </collision>
+            <collision name="r_lower_leg_distal_collision">
+                <origin xyz="${reflect*0.0492} -0.0145 0"/>
+                <geometry>
+                    <box size="0.067 0.03 0.049"/>
+                </geometry>
+            </collision>
+            <xacro:insert_block name="inertial" />
+            <!--
         <inertial>
             <origin xyz="-0.053955 0.006548 -0.000592" />
             <mass value="0.070309794"/>
-            <inertia ixx="0.093369608"  ixy="-0.00093567395"  ixz="-0.00023992085" iyx="-0.00093567395" iyy="0.046295534" iyz="-0.012858493" izx="-0.00023992085" izy="-0.012858493" izz="0.11351516" />
+            <inertia ixx="0.093369608" ixy="-0.00093567395" ixz="-0.00023992085" iyx="-0.00093567395" iyy="0.046295534" iyz="-0.012858493" izx="-0.00023992085" izy="-0.012858493" izz="0.11351516" />
         </inertial>
         -->
-    </link>
+        </link>
     </xacro:macro>
 
     <xacro:macro name="ankle_swing_link" params="prefix reflect x_offset y_offset z_offset *inertial">
-    <link name="${prefix}_ankle_swing_link">
-        <!-- Motor 15[r] 16[l] -->
-        <visual>
-            <default_geometry cad_file="AX-12"/>
-            <origin xyz="0 0 0" rpy=" ${(reflect-1)*pi*-1/2}  ${(reflect+1)*pi*1/2} ${-pi/2}"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F7"/>
-            <origin xyz="${-1*reflect*0.0145} 0.019 0" rpy="${pi} ${(reflect-1)*pi*-1/2} 0"/>
-        </visual>
-        <!-- Motor 17[r] 18[l] -->
-        <visual>
-            <default_geometry cad_file="AX-12"/>
-            <origin xyz="0 -0.032 0" rpy="0 ${reflect*pi/2} ${-1*reflect*pi/2}"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F6"/>
-            <origin xyz="${-1*reflect*0.0145} -0.048 ${reflect*0.019}" rpy="${-1*reflect*pi/2} 0 ${-pi/2}"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F6"/>
-            <origin xyz="${-1*reflect*0.0145} -0.048 ${-1*reflect*0.019}" rpy="${reflect*pi/2} 0 ${-pi/2}"/>
-        </visual>
-        <collision name="r_ankle_swing_collision">
-            <origin xyz="${-1*reflect*0.0135} -0.0167 0"/>
-            <geometry>
-                <box size="0.051 0.0721 0.04"/>
-            </geometry>
-        </collision>
-        <xacro:insert_block name="inertial" />
-        <!--
+        <link name="${prefix}_ankle_swing_link">
+            <!-- Motor 15[r] 16[l] -->
+            <visual>
+                <default_geometry cad_file="AX-12"/>
+                <origin xyz="0 0 0" rpy=" ${(reflect-1)*pi*-1/2}  ${(reflect+1)*pi*1/2} ${-pi/2}"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F7"/>
+                <origin xyz="${-1*reflect*0.0145} 0.019 0" rpy="${pi} ${(reflect-1)*pi*-1/2} 0"/>
+            </visual>
+            <!-- Motor 17[r] 18[l] -->
+            <visual>
+                <default_geometry cad_file="AX-12"/>
+                <origin xyz="0 -0.032 0" rpy="0 ${reflect*pi/2} ${-1*reflect*pi/2}"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F6"/>
+                <origin xyz="${-1*reflect*0.0145} -0.048 ${reflect*0.019}" rpy="${-1*reflect*pi/2} 0 ${-pi/2}"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F6"/>
+                <origin xyz="${-1*reflect*0.0145} -0.048 ${-1*reflect*0.019}" rpy="${reflect*pi/2} 0 ${-pi/2}"/>
+            </visual>
+            <collision name="r_ankle_swing_collision">
+                <origin xyz="${-1*reflect*0.0135} -0.0167 0"/>
+                <geometry>
+                    <box size="0.051 0.0721 0.04"/>
+                </geometry>
+            </collision>
+            <xacro:insert_block name="inertial" />
+            <!--
         <inertial>
             <origin xyz="-0.000214 -0.018536 0.013873" />
             <mass value="0.16710792"/>
-            <inertia ixx="0.12079175"  ixy="-0.00079781067"  ixz="-0.00039322246" iyx="-0.00079781067" iyy="0.10885465" iyz="0.0070770117" izx="-0.00039322246" izy="0.0070770117" izz="0.041871103" />
+            <inertia ixx="0.12079175" ixy="-0.00079781067" ixz="-0.00039322246" iyx="-0.00079781067" iyy="0.10885465" iyz="0.0070770117" izx="-0.00039322246" izy="0.0070770117" izz="0.041871103" />
         </inertial>
         -->
-    </link>
+        </link>
     </xacro:macro>
 
     <xacro:macro name="ankle_lateral_link" params="prefix reflect x_offset y_offset z_offset *inertial">
-    <link name="${prefix}_ankle_lateral_link">
-        <visual>
-            <default_geometry cad_file="BPF-BU"/>
-            <origin xyz="0 0 0.015" rpy="${pi/2} 0 0"/>
-        </visual>
-        <visual>
-            <default_geometry cad_file="FP04-F5"/>
-            <origin xyz="0 0 -0.0155" rpy="${-1*reflect*pi/2} ${(reflect-1)*pi*-1/2}  ${-pi/2}"/>
-        </visual>
-        <collision name="r_ankle_lateral_collision">
-            <origin xyz="${reflect*0.009} 0 -0.016"/>
-            <geometry>
-                <box size="0.0405 0.029 0.083"/>
-            </geometry>
-        </collision>
-        <xacro:insert_block name="inertial" />
-        <!--
+        <link name="${prefix}_ankle_lateral_link">
+            <visual>
+                <default_geometry cad_file="BPF-BU"/>
+                <origin xyz="0 0 0.015" rpy="${pi/2} 0 0"/>
+            </visual>
+            <visual>
+                <default_geometry cad_file="FP04-F5"/>
+                <origin xyz="0 0 -0.0155" rpy="${-1*reflect*pi/2} ${(reflect-1)*pi*-1/2}  ${-pi/2}"/>
+            </visual>
+            <collision name="r_ankle_lateral_collision">
+                <origin xyz="${reflect*0.009} 0 -0.016"/>
+                <geometry>
+                    <box size="0.0405 0.029 0.083"/>
+                </geometry>
+            </collision>
+            <xacro:insert_block name="inertial" />
+            <!--
         <inertial>
             <origin xyz="-0.025995 -0.009506 -0.000503" />
             <mass value="0.0794462"/>
-            <inertia ixx="0.12079175"  ixy="-0.00079781067"  ixz="-0.00039322246" iyx="-0.00079781067" iyy="0.10885465" iyz="0.0070770117" izx="-0.00039322246" izy="0.0070770117" izz="0.041871103" />
+            <inertia ixx="0.12079175" ixy="-0.00079781067" ixz="-0.00039322246" iyx="-0.00079781067" iyy="0.10885465" iyz="0.0070770117" izx="-0.00039322246" izy="0.0070770117" izz="0.041871103" />
         </inertial>
         -->
-    </link>
-    </xacro:macro> 
+        </link>
+    </xacro:macro>
 
     <!-- Base -->
     <joint name="base_to_torso_joint" type="fixed">
@@ -411,7 +481,7 @@
         <inertial>
             <origin xyz="-0.013522619 0.010264050 0.0013935747"/>
             <mass value="0.025913024"/>
-            <inertia  ixx="0.0097758165" ixy="0.0016911839"  ixz="-0.0016911839"  iyy="0.010511104"  iyz="0.00033406955"  izz="0.005476798"/>
+            <inertia ixx="0.0097758165" ixy="0.0016911839" ixz="-0.0016911839" iyy="0.010511104" iyz="0.00033406955" izz="0.005476798"/>
         </inertial>
         -->
     </link>
@@ -434,7 +504,7 @@
         <inertial>
             <origin xyz="-0.013522619 0.010264050 0.0013935747"/>
             <mass value="0.025913024"/>
-            <inertia  ixx="0.0097758165" ixy="0.0016911839"  ixz="-0.0016911839"  iyy="0.010511104"  iyz="0.00033406955"  izz="0.005476798"/>
+            <inertia ixx="0.0097758165" ixy="0.0016911839" ixz="-0.0016911839" iyy="0.010511104" iyz="0.00033406955" izz="0.005476798"/>
         </inertial>
         -->
     </link>
@@ -479,7 +549,7 @@
         <inertial>
       	<origin xyz="-0.036239 0.000734 -0.000660" />
       	<mass value="0.16837715"/>
-      	<inertia ixx="0.12202839"  ixy="-0.0020812626"  ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
+      	<inertia ixx="0.12202839" ixy="-0.0020812626" ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
         </inertial>
         -->
     </link>
@@ -524,7 +594,7 @@
         <inertial>
       	<origin xyz="-0.036239 0.000734 -0.000660" />
       	<mass value="0.16837715"/>
-      	<inertia ixx="0.12202839"  ixy="-0.0020812626"  ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
+      	<inertia ixx="0.12202839" ixy="-0.0020812626" ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
         </inertial>
         -->
     </link>
@@ -560,7 +630,7 @@
         <inertial>
             <origin xyz="0.000000 0.000000 0.000000" />
             <mass value="0.059288504"/>
-            <inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+            <inertia ixx="0.086855267" ixy="0.0053020311" ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
         </inertial>
         -->
     </link>
@@ -596,7 +666,7 @@
         <inertial>
             <origin xyz="0.000000 0.000000 0.000000" />
             <mass value="0.059288504"/>
-            <inertia ixx="0.086855267"  ixy="0.0053020311"  ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
+            <inertia ixx="0.086855267" ixy="0.0053020311" ixz="0.00043636051" iyx="0.0053020311" iyy="0.021192085" iyz="-0.0064855932" izx="0.00043636051" izy="-0.0064855932" izz="0.086845450" />
         </inertial>
         -->
     </link>
@@ -625,7 +695,7 @@
         <inertial>
             <origin xyz="0.045838 -0.013490 0.006666"/>
             <mass value="0.010"/>
-            <inertia ixx="0.12202839"  ixy="-0.0020812626"  ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
+            <inertia ixx="0.12202839" ixy="-0.0020812626" ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
         </inertial>
         -->
     </link>
@@ -654,7 +724,7 @@
         <inertial>
             <origin xyz="0.045838 -0.013490 0.006666"/>
             <mass value="0.010"/>
-            <inertia ixx="0.12202839"  ixy="-0.0020812626"  ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
+            <inertia ixx="0.12202839" ixy="-0.0020812626" ixz="-0.00088143449" iyx="-0.0020812626" iyy="0.038088441" iyz="0.0018251448" izx="-0.00088143449" izy="0.0018251448" izz="0.11340830" />
         </inertial>
         -->
     </link>
@@ -670,15 +740,15 @@
     <!-- Right hip twist to hip lateral -->
     <xacro:hip_lateral_joint prefix="r" reflect="1"/>
     <xacro:hip_lateral_link prefix="r" reflect="1" x_offset="0" y_offset="0" z_offset="0.0353">
-    	<xacro:hip_right_inertial/>
+        <xacro:hip_right_inertial/>
     </xacro:hip_lateral_link>
 
     <!-- Left hip twist to hip lateral -->
     <xacro:hip_lateral_joint prefix="l" reflect="-1"/>
     <xacro:hip_lateral_link prefix="l" reflect="-1" x_offset="0" y_offset="0" z_offset="0.0353">
-		<xacro:hip_left_inertial/>
+        <xacro:hip_left_inertial/>
     </xacro:hip_lateral_link>
-    
+
     <!-- Right hip lateral to upper leg -->
     <xacro:hip_swing_joint prefix="r" reflect="1"/>
     <xacro:upper_leg_link prefix="r" reflect="1" x_offset="0" y_offset="0" z_offset="0"/>
@@ -690,37 +760,37 @@
     <!-- Right upper leg to lower leg -->
     <xacro:knee_joint prefix="r" reflect="1"/>
     <xacro:lower_leg_link prefix="r" reflect="1" x_offset="0" y_offset="0" z_offset="0">
-    	<xacro:tibia_right_inertial/>
+        <xacro:tibia_right_inertial/>
     </xacro:lower_leg_link>
-    
+
     <!-- Left upper leg to lower leg -->
     <xacro:knee_joint prefix="l" reflect="-1"/>
     <xacro:lower_leg_link prefix="l" reflect="-1" x_offset="0" y_offset="0" z_offset="0">
-    	<xacro:tibia_left_inertial/>
+        <xacro:tibia_left_inertial/>
     </xacro:lower_leg_link>
 
     <!-- Right lower leg to ankle swing -->
     <xacro:ankle_swing_joint prefix="r" reflect="1"/>
     <xacro:ankle_swing_link prefix="r" reflect="1" x_offset="0" y_offset="0" z_offset="0">
-    	<xacro:ankle_right_inertial/>
+        <xacro:ankle_right_inertial/>
     </xacro:ankle_swing_link>
 
     <!-- Left lower leg to ankle swing -->
     <xacro:ankle_swing_joint prefix="l" reflect="-1"/>
     <xacro:ankle_swing_link prefix="l" reflect="-1" x_offset="0" y_offset="0" z_offset="0">
-    	<xacro:ankle_left_inertial/>
+        <xacro:ankle_left_inertial/>
     </xacro:ankle_swing_link>
 
     <!-- Right ankle swing to ankle lateral -->
     <xacro:ankle_lateral_joint prefix="r" reflect="1"/>
     <xacro:ankle_lateral_link prefix="r" reflect="1" x_offset="0" y_offset="0" z_offset="0">
-    	<xacro:foot_right_inertial/>
+        <xacro:foot_right_inertial/>
     </xacro:ankle_lateral_link>
 
     <!-- Left ankle swing to ankle lateral -->
     <xacro:ankle_lateral_joint prefix="l" reflect="-1"/>
     <xacro:ankle_lateral_link prefix="l" reflect="-1" x_offset="0" y_offset="0" z_offset="0">
-    	<xacro:foot_left_inertial/>
+        <xacro:foot_left_inertial/>
     </xacro:ankle_lateral_link>
 
     <!-- Right ankle lateral to foot -->
