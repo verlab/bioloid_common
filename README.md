@@ -43,7 +43,8 @@ $ rosservice call /gazebo/unpause_physics "{}"
 ```
 
 ## Topics
-```$ rostopic list
+```
+$ rostopic list
   /clock
   /rosout
   /rosout_agg
