@@ -6,7 +6,7 @@
     <arg name="world_name" value="$(find bioloid_gazebo)/worlds/empty.world"/>
     <arg name="verbose" value="false"/>
     <arg name="paused" value="true"/>
-    <arg name="use_sim_time" value="false"/>
+    <arg name="use_sim_time" value="true"/>
     <arg name="headless" value="false"/>
     <arg name="gui" value="$(arg uses_gui)"/>
   </include>
@@ -21,7 +21,7 @@
   </node>
 
   <!-- Spawn a robot into Gazebo -->
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model typea -z 0.32" />
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model typea -z 0.343986" />
 
   <include file="$(find bioloid_control)/launch/bioloid_gazebo.launch"/>
 
