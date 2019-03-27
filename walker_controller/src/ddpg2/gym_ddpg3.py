@@ -137,6 +137,7 @@ class RobotState(object):
         self.vel_z_imu = 0.0
         self.pos_x_odom = 0.0
         self.pos_z_odom = 0.0
+        self.rotation_odom = []
         self.outer_ring_inner_ring_theta = 0.0
         #self.robot_state = [self.vel_y_imu, self.vel_z_imu, self.l_ankle_swing_joint_pos, self.l_hip_swing_joint_pos, self.l_knee_joint_pos, self.r_ankle_swing_joint_pos, \
         #   self.r_hip_swing_joint_pos, self.r_knee_joint_pos, self.l_ankle_swing_joint_vel, self.l_hip_swing_joint_vel,self.l_knee_joint_vel,self.r_ankle_swing_joint_vel,self.r_hip_swing_joint_vel,self.r_knee_joint_vel, self.footr_contact, self.footl_contact,self.pos_x_odom,self.pos_z_odom]
@@ -225,8 +226,8 @@ def take_action(action):
                   'l_knee_joint', 'l_ankle_swing_joint', 'l_ankle_lateral_joint', 
                   'r_hip_twist_joint','r_hip_lateral_joint', 'r_hip_swing_joint', 
                   'r_knee_joint', 'r_ankle_swing_joint', 'r_ankle_lateral_joint']
-    newAction = action
-    #newAction = [0,0,0,0,0,0,0,0,0,action[0],action[1],action[2],0,0,0,action[3],action[4],action[5]]
+    #newAction = action
+    newAction = [0,0,0,0,0,0,0,0,action[0],action[1],action[2],0,0,0,action[2],action[3],action[4],0]
     points.positions = newAction
     points.time_from_start = rospy.Duration(0.01, 0)
     joint.points = [points]
@@ -235,31 +236,39 @@ def take_action(action):
     #print joint
     pubJoint.publish(joint)
 
-    if(robot_state.data!= None):
-        while(np.max(np.abs(np.array(newAction)-np.array(robot_state.data.position)))>0.1):
-            print(np.max(np.abs(np.array(newAction)-np.array(robot_state.data.position))))
+    # if(robot_state.data!= None):
+    #     while(np.max(np.abs(np.array(newAction)-np.array(robot_state.data.position)))>0.1):
+    #         print(np.max(np.abs(np.array(newAction)-np.array(robot_state.data.position))))
 
     reward = -0.1  # when it used to run, used to be -0.1
     current_time = time.time()
-    if (robot_state.outer_ring_inner_ring_theta - robot_state.last_outer_ring_inner_ring_theta) <= 0.01: #-0.001forward     
+    if (robot_state.outer_ring_inner_ring_theta - robot_state.last_outer_ring_inner_ring_theta) >= 0.1: #-0.001forward     
         delta_time = current_time - robot_state.last_time
         reward += ((robot_state.outer_ring_inner_ring_theta - robot_state.last_outer_ring_inner_ring_theta))*10
+        print("ganho", reward)
+        print("distancia", robot_state.outer_ring_inner_ring_theta - robot_state.last_outer_ring_inner_ring_theta)
+    # else:
+    #     print("\33[92mLose!\33[0m")
     robot_state.last_time = current_time
     robot_state.last_outer_ring_inner_ring_theta = robot_state.outer_ring_inner_ring_theta
+    
 
-
-    if (robot_state.pos_z_odom) <= 0.18: #-0.001forward        
-        reward += -2.0
+    # if (robot_state.pos_z_odom) <= 0.18: #-0.001forward        
+    #     reward += -2.0
         #print("odometria")
     # if robot_state.waist_z < -0.10:
     #     reward += -100
     #     robot_state.done = True
     #     robot_state.fall = 1
-    if (robot_state.footr_contact > 60 and robot_state.footl_contact > 60):
+    if (robot_state.footr_contact > 40 and robot_state.footl_contact > 40 and robot_state.pos_z_odom <= 0.18):
         reward += -100
         robot_state.done = True
         robot_state.fall = 1
         #print("\33[91mDROPPED DOWN!\33[0m")
+    if (np.abs(robot_state.rotation_odom.x) >0.2 or np.abs(robot_state.rotation_odom.y) >0.2 or np.abs(robot_state.rotation_odom.z) >0.2 ):
+        reward += -100
+        robot_state.done = True
+        robot_state.fall = 1
 
     if robot_state.outer_ring_inner_ring_theta >9.0:
         reward += 100
@@ -412,6 +421,7 @@ def callbackVelOdom(data):
     robot_state.pos_x_odom = data.pose.pose.position.x
     robot_state.outer_ring_inner_ring_theta=data.pose.pose.position.x
     robot_state.pos_z_odom = data.pose.pose.position.z
+    robot_state.rotation_odom = data.pose.pose.orientation
 
 def callbackContactShankL(data):
     if not data.states:
@@ -461,7 +471,7 @@ def publisher(pubHipR, rate, counter):
                 traj_writer = csv.writer(traj_file, delimiter='\t')
                 traj_writer.writerow(['r_shoulder_swing_joint', 'l_shoulder_swing_joint', 'r_shoulder_lateral_joint', 'l_shoulder_lateral_joint',  'r_elbow_joint', 'l_elbow_joint', 'r_hip_twist_joint', 'l_hip_twist_joint', 'r_hip_lateral_joint',  'l_hip_lateral_joint', 'r_hip_swing_joint', 'l_hip_swing_joint', 'r_knee_joint', 'l_knee_joint',  'r_ankle_swing_joint', 'l_ankle_swing_joint', 'r_ankle_lateral_joint', 'l_ankle_lateral_joint'])
 
-                print "testing"
+                #print "testing"
                 total_reward = 0
                 count_of_1 = 0
                 for i in range(TEST):
