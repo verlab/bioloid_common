@@ -24,8 +24,15 @@
   <!--node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model typea -z 0.343986" /-->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model typea -z 0.29398" />
 
+  <!-- Convert Odom into tf-->
+  <node name="odom_to_tf" pkg="message_to_tf" type="message_to_tf" output="screen">
+    <param name="topic" value="/typea/odom" />
+  </node>
+
   <include file="$(find bioloid_control)/launch/bioloid_gazebo.launch"/>
 
   <!--node name="typea_walker" pkg="bioloid_gazebo" type="walker.py" output="screen"/-->
+
+
 
 </launch>
