@@ -5,8 +5,9 @@ This ROS package contains description's files to simulates and visualizes the bi
 ## ROS Dependecies
 Install message-to-tf to convert odometry to tf:
 ```
-$ sudo apt install ros-kinetic-message-to-tf 
+$ sudo apt install ros-kinetic-message-to-tf
 ```
+Case you are using ROS melodic you can download this package from [here](https://github.com/tu-darmstadt-ros-pkg/hector_localization).
 
 ## RViz Usage
 Standalone (using TF transform from fake joint state publisher GUI):
